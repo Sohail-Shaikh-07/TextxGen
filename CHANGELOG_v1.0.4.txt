@@ -1,0 +1,281 @@
+================================================================================
+                    TextxGen Version 1.0.4 - Release Notes
+================================================================================
+
+Release Date: November 23, 2025
+Package: TextxGen
+Author: Sohail Shaikh
+Support: support@pystack.site
+
+================================================================================
+                             MAJOR UPDATES
+================================================================================
+
+1. EXPANDED MODEL SUPPORT (50+ Models)
+   ────────────────────────────────────────────────────────────────────────
+   ✓ Increased from 13 models to 50+ supported AI models
+   ✓ Added major new model providers:
+     - Amazon Nova (Lite, Micro)
+     - Microsoft Phi-4 series (Standard, Reasoning+)
+     - Google Gemini 2.0 & 2.5 updates
+     - Cohere Command R series
+     - NVIDIA Nemotron updates
+     - Liquid AI models (LFM series)
+     - Enhanced Llama 3.x variants
+     - Multiple Qwen 3.x models
+     - Mistral family updates
+     - DeepSeek v3.1 and R1 series
+     - And many more specialized models
+
+   New Model Categories:
+   • General Chat: 15+ models
+   • Coding Specialists: 8+ models
+   • Vision/Multimodal: 6+ models
+   • Reasoning Models: 5+ models
+   • Creative/Roleplay: 4+ models
+   • Lightweight/Fast: 8+ models
+
+2. ERROR HANDLING IMPROVEMENTS
+   ────────────────────────────────────────────────────────────────────────
+   ✓ Implemented user-friendly error messaging system
+   ✓ Hidden backend implementation details (OpenRouter references removed)
+   ✓ Suppressed Python exception chaining to prevent proxy URL exposure
+   ✓ Added intelligent error detection and categorization
+
+   Error Message Examples:
+   • Rate Limit (429): "Model Service is experiencing high demand. 
+     Please switch to another model or contact support@pystack.site"
+   • Service Issues: "Model Service temporarily unavailable. 
+     Please try another model or contact support@pystack.site"
+   • Generic Errors: Clean, actionable messages without technical jargon
+
+   Technical Implementation:
+   • Created sanitize_error_message() function in Vercel proxy
+   • Updated error handlers in /chat and /completions endpoints
+   • Added "from None" to exception raises to suppress exception chains
+   • Maintained detailed server-side logging for debugging
+
+3. MAX_TOKENS DEFAULT STANDARDIZED
+   ────────────────────────────────────────────────────────────────────────
+   ✓ Updated default max_tokens from 100 to 1024 across all endpoints
+   ✓ Ensures consistent behavior across the entire package
+   ✓ User-specified values always take precedence
+
+   Updated Components:
+   • textxgen/client.py - chat_completion() and text_completion()
+   • textxgen/endpoints/chat.py - chat() method
+   • textxgen/endpoints/completions.py - complete() method
+   • api/main.py - /chat and /completions endpoints
+   • Updated documentation to reflect new defaults
+
+================================================================================
+                          DETAILED CHANGES BY FILE
+================================================================================
+
+PACKAGE CONFIGURATION
+──────────────────────────────────────────────────────────────────────────
+• textxgen/config.py
+  - Updated VERSION from "1.0.3" to "1.0.4"
+  - Expanded SUPPORTED_MODELS from 13 to 50+ entries
+  - Added comprehensive model display names
+  - Organized models alphabetically for easier maintenance
+
+• api/vercel_config.py
+  - Synchronized model list with main config
+  - Maintained backward compatibility
+
+ERROR HANDLING
+──────────────────────────────────────────────────────────────────────────
+• api/main.py
+  - Added sanitize_error_message() helper function
+  - Updated /chat endpoint error handling (lines 120-136)
+  - Updated /completions endpoint error handling (lines 182-198)
+  - Implemented pattern-based error detection (rate limits, quotas, etc.)
+
+• textxgen/client.py
+  - Added "from None" to all exception raises (lines 104, 109, 114, 119)
+  - Suppressed exception chaining for cleaner user-facing errors
+  - Updated JSON decode error handling (line 153)
+
+• textxgen/exceptions.py
+  - Enhanced APIError.__init__() with better message mapping
+  - Updated status code messages (400, 429, 502, 503)
+  - Improved pattern detection for rate limits and quota issues
+
+DEFAULT PARAMETERS
+──────────────────────────────────────────────────────────────────────────
+• textxgen/client.py
+  - Updated chat_completion() max_tokens default: 100 → 1024
+  - Updated text_completion() max_tokens default: 100 → 1024
+
+• textxgen/endpoints/chat.py
+  - Updated chat() max_tokens default: 100 → 1024
+
+• textxgen/endpoints/completions.py
+  - Updated complete() max_tokens default: 100 → 1024
+  - Updated docstring to reflect new default
+
+• api/main.py
+  - Updated /chat endpoint max_tokens fallback: 100 → 1024
+  - Updated /completions endpoint max_tokens fallback: 1000 → 1024
+
+DOCUMENTATION
+──────────────────────────────────────────────────────────────────────────
+• README.md
+  - Updated supported models table (expanded to 50+ models with descriptions)
+  - Corrected parameter tables formatting
+  - Added comprehensive model descriptions
+  - Improved table alignment and readability
+
+================================================================================
+                        COMPLETE MODEL LIST (50+)
+================================================================================
+
+AFM 4.5B                      | Lightweight general chat model
+Command R7B                   | Enterprise RAG & workflow model
+Cydonia 24B V4.1              | Creative storytelling specialist
+Deepseek Chat v3.1            | High-performance reasoning & coding
+Deepseek R1 Distill Llama 70B | Large reasoning-focused model
+Devstral Small 2505           | Coding & repo understanding
+Gemini 2.5 Flash Lite         | Fast, low-cost Google model
+Gemini 2.0 Flash              | Efficient multimodal reasoning
+Gemma 2 9B IT                 | Instruction-tuned reasoning model
+Gemma 3N E4B IT               | Next-gen compact reasoning
+Granite 4.0 H Micro           | IBM enterprise model
+GPT-4.1 Nano                  | Compact GPT-4 family model
+GPT-4o Mini                   | Cost-efficient multimodal GPT
+GPT-5 Nano                    | Experimental GPT-5 small model
+GPT-OSS 120B                  | Open-source 120B model
+Grok 4.1 Fast                 | Real-time xAI reasoning (DEFAULT)
+Hermes 3 Llama-3.1 70B        | Advanced reasoning & RP
+Hermes 2 Pro Llama-3 8B       | Strong 8B assistant model
+InternVL-3 78B                | Large multimodal vision model
+Kat Coder Pro                 | Code debugging & refactoring
+Kimi Linear 48B A3B           | Long-context bilingual model
+LFM2 8B A1B                   | Liquid reasoning model
+LFM 2.2 6B                    | Lightweight structured output
+Llama-3.1 8B Instruct         | Improved Llama instruction model
+Llama-3.2 11B Vision Instruct | Vision-enabled Llama
+Llama-3.2 1B Instruct         | Smallest Llama device model
+Llama-3.2 3B Instruct         | Efficient assistant model
+Llama-3 8B Instruct           | Base Llama-3 chat model
+Llama-4 Maverick              | Next-gen Llama reasoning
+Llama Guard-3 8B              | Safety & moderation model
+Longcat Flash Chat            | Long-context conversation
+Lunaris 8B                    | Emotional roleplay assistant
+Ministral 3B                  | Small fast Mistral model
+Mistral Small 24B             | Updated 24B assistant
+Mistral 7B Instruct           | Efficient 7B open-source
+Mistral NEMO                  | NVIDIA collaboration model
+Mistral Small 3.2 24B         | Advanced API-agent model
+MythoMax L2 13B               | Creative RP specialist
+Nemotron Nano 12B V2 VL       | NVIDIA multimodal model
+Nemotron Nano 9B V2           | Compact dataset generation
+Nova Lite V1                  | Balanced Amazon assistant
+Nova Micro V1                 | Fast Amazon micro model
+OLMo-3 7B Instruct            | Open research model
+Phi-4                         | Small Microsoft reasoning
+Phi-4 Reasoning+              | Enhanced step-by-step reasoning
+Qwen-3 14B                    | Mid-size balanced model
+Qwen-3 Coder 30B A3B          | High-tier coding model
+Qwen-3 32B                    | Large conversation model
+Qwen-3 Coder                  | Lightweight code assistant
+Qwen-2.5 VL 72B               | Advanced multimodal vision
+Qwen-3 VL 8B Instruct         | Efficient multimodal assistant
+UnslopNemo-12B                | Expressive roleplay model
+Voxtral Small 24B             | Natural speechlike responses
+
+================================================================================
+                         BREAKING CHANGES
+================================================================================
+
+NONE - This release is fully backward compatible.
+
+All existing code will continue to work without modifications. The changes
+enhance functionality and user experience without breaking existing APIs.
+
+================================================================================
+                         MIGRATION GUIDE
+================================================================================
+
+No migration required for version 1.0.4.
+
+OPTIONAL UPDATES:
+1. Remove explicit max_tokens=100 calls to use the new default of 1024
+2. Update model references if using deprecated model names
+3. Review error handling code - cleaner messages now provided automatically
+
+================================================================================
+                         BUG FIXES
+================================================================================
+
+✓ Fixed: Backend proxy URL exposure in error messages
+✓ Fixed: Exception chaining showing internal requests errors
+✓ Fixed: Inconsistent max_tokens defaults across endpoints
+✓ Fixed: Outdated docstrings referencing wrong default values
+
+================================================================================
+                      TECHNICAL IMPROVEMENTS
+================================================================================
+
+• Enhanced maintainability with alphabetically sorted model lists
+• Improved code documentation with updated docstrings
+• Better error categorization and user guidance
+• Consistent parameter handling across all API layers
+• Server-side logging preserved for debugging while hiding from users
+
+================================================================================
+                           TESTING NOTES
+================================================================================
+
+All changes have been tested for:
+✓ Backward compatibility with existing code
+✓ User parameter preservation (max_tokens, model, etc.)
+✓ Error message sanitization and clarity
+✓ Default value application when parameters not specified
+✓ Multi-layer parameter flow (endpoints → client → proxy → API)
+
+================================================================================
+                         KNOWN LIMITATIONS
+================================================================================
+
+• Some free-tier models may experience rate limiting during high demand
+• Vision models require appropriate input format (text + image)
+• Model availability depends on OpenRouter upstream status
+
+================================================================================
+                           UPGRADE STEPS
+================================================================================
+
+For users upgrading from v1.0.3:
+
+1. Update the package:
+   pip install --upgrade textxgen
+
+2. No code changes required
+
+3. Optional: Review new models available in SUPPORTED_MODELS
+
+4. Optional: Remove explicit max_tokens=100 to benefit from new 1024 default
+
+================================================================================
+                         ACKNOWLEDGMENTS
+================================================================================
+
+Thank you to all users who provided feedback on error messaging and
+requested expanded model support. Your input directly shaped this release.
+
+================================================================================
+                          SUPPORT & CONTACT
+================================================================================
+
+Issues: support@pystack.site
+Documentation: See README.md
+GitHub: https://github.com/Sohail-Shaikh-07/textxgen
+
+For questions about specific models, please refer to the model provider's
+documentation or contact our support team.
+
+================================================================================
+                           END OF CHANGELOG
+================================================================================
