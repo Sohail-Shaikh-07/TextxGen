@@ -63,11 +63,11 @@ pip install textxgen
 
 1. Clone the repository from GitHub:
    ```bash
-   git clone https://github.com/Sohail-Shaikh-07/textxgen.git
+   git clone https://github.com/Sohail-Shaikh-07/TextxGen.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd textxgen
+   cd TextxGen
    ```
 3. Install the package locally:
    ```bash
