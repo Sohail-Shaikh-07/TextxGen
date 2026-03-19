@@ -4,6 +4,8 @@ from textxgen.endpoints.completions import CompletionsEndpoint
 # Here we have the different examples of chat and completion
 
 def main():
+    # Constant
+    AI_MODEL = "grok4.1_fast"
     # Initialize endpoints
     chat = ChatEndpoint()
     completions = CompletionsEndpoint()
@@ -14,7 +16,7 @@ def main():
     messages = [{"role": "user", "content": "What is Python?"}]
     response = chat.chat(
         messages=messages,
-        model="grok4.1_fast",
+        model=AI_MODEL,
         temperature=0.7,
         max_tokens=100,
     )
@@ -26,7 +28,7 @@ def main():
     print("-" * 50)
     response = chat.chat(
         messages=messages,
-        model="grok4.1_fast",
+        model=AI_MODEL,
         temperature=0.7,
         max_tokens=100,
         raw_response=True,  # Get raw JSON response
@@ -40,7 +42,7 @@ def main():
     print("-" * 50)
     response = completions.complete(
         prompt="Write a one-line story:",
-        model="grok4.1_fast",
+        model=AI_MODEL,
         temperature=0.7,
         max_tokens=50,
     )
@@ -52,7 +54,7 @@ def main():
     print("-" * 50)
     response = completions.complete(
         prompt="Write a one-line story:",
-        model="grok4.1_fast",
+        model=AI_MODEL,
         temperature=0.7,
         max_tokens=50,
         raw_response=True,  # Get raw JSON response
