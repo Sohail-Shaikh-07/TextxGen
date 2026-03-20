@@ -44,7 +44,7 @@ def main():
         temperature=0.7,
         max_tokens=50,
     )
-    print(f"Prompt: Write a one-line story:")
+    print("Prompt: Write a one-line story:")
     print(f"Completion: {response}\n")
 
     # Example 4: Raw completion response
